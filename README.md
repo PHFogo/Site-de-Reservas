@@ -1,61 +1,180 @@
- projeto precisa apresentar a modelagem entidade relacionamento.
-"Sim. A modelagem foi o primeiro passo do projeto. Identificamos três entidades centrais: Usuário, Serviço e Reserva. O diagrama de entidade-relacionamento demonstra que um Usuário pode fazer várias Reservas, e um Serviço também pode estar contido em várias Reservas. A tabela Reservas funciona como a entidade associativa que conecta as outras duas, garantindo um modelo relacional coeso."
+-----
 
-O sistema possui tabelas suficientes para atender ao propósito do projeto. (Mínimo 3)
-"Sim. Foram criadas exatamente três tabelas: usuarios, servicos e reservas. Esta estrutura é a base mínima e suficiente para atender a todos os requisitos funcionais do sistema: gerenciar quem são os usuários, o que eles podem reservar e o estado de cada reserva."
+# Sistema de Reservas em PHP MVC
 
-Foram adicionadas corretamente as chaves primárias.
-"Sim. Todas as tabelas possuem uma chave primária chamada id, configurada como INT e AUTO_INCREMENT. Isso garante que cada registro em cada tabela tenha um identificador único e que a gestão desses identificadores seja feita automaticamente pelo banco de dados."
+Um projeto full-stack para um sistema de agendamento de serviços, desenvolvido com PHP orientado a objetos, padrão MVC, SQL e foco em boas práticas de desenvolvimento de software.
 
-O projeto possui ao menos 1 chave estrangeira?
-"Sim. O projeto possui duas chaves estrangeiras, ambas na tabela reservas. A coluna id_usuario é uma chave estrangeira que se refere à tabela usuarios, e a id_servico refere-se à tabela servicos. Elas são essenciais para garantir a integridade referencial do banco de dados, ou seja, uma reserva não pode existir sem um usuário e um serviço válidos."
+-----
 
-Fez todos os Exercícios e Fez de maneira correta.
-"Sim. Todos os requisitos funcionais e técnicos solicitados foram implementados. Acredito que a maneira correta foi seguida, pois o projeto não apenas funciona conforme o esperado, mas também adere a princípios de software modernos, como a arquitetura MVC, segurança básica e tratamento de erros, que vou detalhar a seguir."
+## ✨ Tabela de Conteúdos
 
-O projeto é funcional? É possível utilizá-lo conforme o proposto?
-"Sim, o projeto é totalmente funcional. Existem dois fluxos de uso principais que funcionam perfeitamente:
+  * [Visão Geral](https://www.google.com/search?q=%23-vis%C3%A3o-geral)
+  * [Funcionalidades](https://www.google.com/search?q=%23-funcionalidades)
+  * [Tecnologias Utilizadas](https://www.google.com/search?q=%23-tecnologias-utilizadas)
+  * [Arquitetura do Projeto](https://www.google.com/search?q=%23-arquitetura-do-projeto)
+      * [Padrão MVC](https://www.google.com/search?q=%23padr%C3%A3o-mvc)
+      * [Modelagem de Dados (ERD)](https://www.google.com/search?q=%23modelagem-de-dados-erd)
+  * [🚀 Instalação e Execução](https://www.google.com/search?q=%23-instala%C3%A7%C3%A3o-e-execu%C3%A7%C3%A3o)
+  * [🔑 Credenciais de Acesso](https://www.google.com/search?q=%23-credenciais-de-acesso)
+  * [Licença](https://www.google.com/search?q=%23-licen%C3%A7a)
 
-O fluxo do cliente, que pode se registrar, fazer login, solicitar uma nova reserva e consultar o status de suas reservas existentes.
+-----
 
-O fluxo do administrador, que pode fazer login com suas credenciais, visualizar todas as reservas de todos os clientes e alterar o status de cada uma (de 'Pendente' para 'Confirmada', por exemplo)."
+## 📖 Visão Geral
 
-O projeto foi desenvolvido utilizando os princípios da programação orientada a objetos de forma consistente?
-"Sim. A POO é um pilar central da aplicação.
+Este projeto simula um portal de reservas onde clientes podem se cadastrar, agendar serviços e acompanhar o status de seus agendamentos. Um painel administrativo permite o gerenciamento completo de todas as reservas cadastradas no sistema. O principal objetivo foi construir uma aplicação funcional, segura e bem estruturada, aplicando conceitos modernos de desenvolvimento PHP.
 
-Abstração: As entidades do sistema foram abstraídas em classes como Usuario, Reserva e Servico.
+-----
 
-Encapsulamento: Os atributos dessas classes são privados, e o acesso a eles é controlado por métodos públicos, como veremos no requisito sobre modificadores de acesso.
+## ⚙️ Funcionalidades
 
-Herança: Foi utilizada uma classe base Controller da qual os outros controllers, como AuthController e AdminController, herdam métodos comuns, como a conexão com o banco e a renderização de views."
+### Painel do Cliente
 
-O projeto utilizou composer pra importar alguma biblioteca externa orientada a objetos?
-"Sim. O Composer foi utilizado para gerenciar as dependências do projeto. Especificamente, importamos a biblioteca vlucas/phpdotenv. O objetivo foi gerenciar variáveis de ambiente de forma segura, separando configurações sensíveis, como as credenciais do banco de dados, do código-fonte. Além disso, o Composer foi fundamental para gerar o autoloader PSR-4, que carrega nossas classes automaticamente."
+  * ✅ Cadastro e Login de usuários.
+  * ✅ Visualização dos serviços disponíveis.
+  * ✅ Criação de novas reservas para um serviço em uma data e hora específicas.
+  * ✅ Página para visualizar o status de todas as suas reservas (Pendente, Confirmada, Cancelada).
 
-O projeto precisa apresentar a correta identificação das entidades envolvidas no projeto?
-"Sim. Conforme mencionado na modelagem, as entidades Usuario, Serviço e Reserva foram corretamente identificadas como os componentes centrais do domínio do problema. Essa identificação se reflete diretamente na estrutura do banco de dados e nas classes de Model da aplicação."
+### Painel do Administrador
 
-O projeto precisa apresentar o uso de enumerações?
-"Sim. O projeto utiliza Enumerações do PHP 8.1+ para aumentar a robustez e a legibilidade do código. Foram criadas duas: UserRole (para definir os papéis 'CLIENTE' e 'ADMIN') e BookingStatus (para os status 'PENDENTE', 'CONFIRMADA', 'CANCELADA'). O uso de Enums evita o uso de 'strings mágicas' e previne erros de digitação, garantindo que apenas valores válidos sejam atribuídos a esses campos."
+  * 🔒 Acesso restrito para usuários com perfil de `ADMIN`.
+  * 📊 Dashboard com a listagem de **todas** as reservas de **todos** os clientes.
+  * ✏️ Funcionalidade para alterar o status de qualquer reserva.
 
-O projeto precisa apresentar a demonstração de compreensão na aplicação dos modificadores de acesso?
-"Sim. Os modificadores de acesso foram aplicados para garantir o encapsulamento. Nos Models, por exemplo, a conexão com o banco de dados é um atributo private, acessível apenas dentro da própria classe. Da mesma forma, os controllers possuem métodos public que servem como actions para as rotas e podem ter métodos private ou protected para lógica interna, separando a interface pública da implementação interna."
+-----
 
-O projeto precisa apresentar uma boa estrutura, separando corretamente as responsabilidades? Foi utilizada alguma arquitetura, como MVC?
-"Sim. A arquitetura escolhida foi a MVC (Model-View-Controller), justamente para garantir uma clara separação de responsabilidades:
+## 🛠️ Tecnologias Utilizadas
 
-Model: Responsável por toda a lógica de dados e comunicação com o banco.
+  * **Backend:** PHP 8.1+
+  * **Banco de Dados:** MySQL / MariaDB
+  * **Gerenciador de Dependências:** Composer
+  * **Bibliotecas PHP:**
+      * `vlucas/phpdotenv` - Para gerenciamento de variáveis de ambiente.
+  * **Frontend:**
+      * HTML5
+      * CSS3
+      * Bootstrap 5
 
-View: Responsável exclusivamente pela camada de apresentação (HTML).
+-----
 
-Controller: Atua como o maestro, recebendo as requisições, interagindo com o Model para buscar dados e passando esses dados para a View correta ser exibida."
+## 🏗️ Arquitetura do Projeto
 
-O projeto precisa apresentar uma arquitetura clara e coerente? E uma estrutura clara?
-"Sim. Acredito que a arquitetura é clara e coerente. A adesão estrita ao MVC, a estrutura de pastas bem definida e o uso de um Front Controller (public/index.php) como ponto de entrada único tornam o fluxo da aplicação previsível e seguro. Qualquer desenvolvedor que entenda MVC pode rapidamente se familiarizar com a estrutura do projeto."
+A aplicação foi estruturada com base em princípios sólidos de engenharia de software para garantir clareza, manutenibilidade e separação de responsabilidades.
 
-O projeto precisa apresentar o tratamento de exceções, com a utilização de Exceptions, sem que seja exibido erro PHP direto para o cliente?
-"Sim. Este é um ponto crucial para a experiência do usuário. No index.php, foi implementado um set_exception_handler global. Qualquer exceção não capturada na aplicação, como uma falha de conexão com o banco de dados, é interceptada por este handler. Ele impede a exibição de erros técnicos do PHP e, em vez disso, mostra uma página de erro 500 amigável para o usuário, garantindo uma experiência mais profissional e segura."
+### Padrão MVC (Model-View-Controller)
 
-(Finalizaria com uma conclusão)
+  * **Model:** Camada responsável pela lógica de negócio e interação com o banco de dados. (Local: `app/Models`)
+  * **View:** Camada de apresentação, contendo o código HTML e a exibição dos dados. (Local: `app/Views`)
+  * **Controller:** Camada que recebe as requisições, orquestra a interação entre Models e Views. (Local: `app/Controllers`)
 
-"Em resumo, o projeto não só atende a todos os requisitos funcionais propostos, como também foi construído sobre uma fundação de boas práticas de desenvolvimento, resultando em um código organizado, seguro e de fácil manutenção. Obrigado."
+### Boas Práticas e Conceitos Aplicados
+
+  * **Front Controller:** Todas as requisições são direcionadas para um único ponto de entrada (`public/index.php`), aumentando a segurança e o controle.
+  * **Programação Orientada a Objetos (POO):** Uso consistente de classes, objetos, herança e encapsulamento.
+  * **Autoload PSR-4:** Carregamento automático de classes gerenciado pelo Composer.
+  * **Enumerações:** Utilização de Enums do PHP 8.1+ para tipos de dados como `UserRole` e `BookingStatus`, tornando o código mais robusto e legível.
+  * **Gerenciamento de Erros:** Um tratador de exceções global captura erros e exibe uma página amigável, evitando a exposição de detalhes técnicos para o usuário final.
+  * **Segurança:** Senhas são armazenadas com hash (`password_hash`) e a comunicação com o banco de dados é feita via PDO para prevenir SQL Injection.
+
+### Modelagem de Dados (ERD)
+
+```mermaid
+erDiagram
+    USUARIO {
+        int id PK
+        varchar nome
+        varchar email UK
+        varchar senha
+        UserRole role "ENUM('CLIENTE', 'ADMIN')"
+    }
+    SERVICO {
+        int id PK
+        varchar nome
+        text descricao
+        decimal preco
+    }
+    RESERVA {
+        int id PK
+        int id_usuario FK
+        int id_servico FK
+        datetime data_reserva
+        BookingStatus status "ENUM('PENDENTE', 'CONFIRMADA', 'CANCELADA')"
+    }
+    USUARIO ||--|{ RESERVA : "faz"
+    SERVICO ||--|{ RESERVA : "é feita para"
+```
+
+-----
+
+## 🚀 Instalação e Execução
+
+Siga os passos abaixo para executar o projeto localmente.
+
+### Pré-requisitos
+
+  * PHP 8.1 ou superior
+  * Composer
+  * MySQL (ou MariaDB)
+  * Git
+
+### Passos
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/seu-usuario/sistema-reservas.git
+    ```
+
+2.  **Navegue até a pasta do projeto:**
+
+    ```bash
+    cd sistema-reservas
+    ```
+
+3.  **Instale as dependências do PHP:**
+
+    ```bash
+    composer install
+    ```
+
+4.  **Configure o ambiente:**
+
+      * Copie o arquivo de exemplo `.env.example` para um novo arquivo chamado `.env`.
+        ```bash
+        cp .env.example .env
+        ```
+      * Abra o arquivo `.env` e **edite as credenciais do banco de dados** (`DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) para corresponder à sua configuração local.
+
+5.  **Crie o banco de dados e as tabelas:**
+
+      * Crie um banco de dados no seu MySQL com o nome que você definiu em `DB_DATABASE`.
+      * Importe o arquivo `database.sql` (contendo a estrutura das tabelas e os dados iniciais) para o seu banco de dados.
+
+6.  **Inicie o servidor local do PHP:**
+
+    ```bash
+    php -S localhost:8000 -t public
+    ```
+
+      * Este comando inicia um servidor na porta `8000`, usando a pasta `public` como diretório raiz.
+
+7.  **Acesse a aplicação:**
+
+      * Abra seu navegador e acesse: `http://localhost:8000`
+
+-----
+
+## 🔑 Credenciais de Acesso
+
+Para acessar o painel administrativo, utilize as seguintes credenciais padrão:
+
+  * **Email:** `admin@email.com`
+  * **Senha:** `admin123`
+
+-----
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://www.google.com/search?q=LICENSE) para mais detalhes.
+
+-----
